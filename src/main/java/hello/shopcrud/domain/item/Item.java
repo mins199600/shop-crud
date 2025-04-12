@@ -1,8 +1,10 @@
 package hello.shopcrud.domain.item;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data   //상품객체
+@Getter
+@Setter
 public class Item {
 
     private int id;    //상품번호
@@ -15,7 +17,7 @@ public class Item {
 
     }
 
-    public Item(String itemName, Integer price, Integer quantity) {
+    public Item(String itemName, int price, int quantity) {
         this.itemName = itemName;
         this.price = price;
         this.quantity = quantity;
