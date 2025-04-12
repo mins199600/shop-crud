@@ -10,5 +10,6 @@ public interface ItemMapper {
     void save(Item item);
     //상품 조회
     List<Item> findAll();
-
+    //상품 상세 보기
+    Item findById(int id);
 }

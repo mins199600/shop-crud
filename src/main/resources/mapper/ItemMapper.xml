@@ -15,5 +15,11 @@
         from item
     </select>
 
+    <!--상품 상세 보기-->
+    <select id="findById" resultType="hello.shopcrud.domain.item.Item">
+        SELECT id, itemName, price, quantity
+        from item
+        where id = #{id}
+    </select>
 
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -42,6 +43,13 @@ public class ItemController {
     }
 
     //상품 상세
+    @GetMapping("/basic/items/{itemId}")
+    public String itemDetail(@PathVariable int itemId, Model model) {
+        Item item = itemService.findByItemId(itemId);
+        model.addAttribute("item",item);
+        return "basic/item";
+    }
+
 
     //상품 수정
 
