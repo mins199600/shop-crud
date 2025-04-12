@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -32,7 +34,9 @@ public class ItemController {
 
     //상품 목록
     @GetMapping("/basic/items")
-    public String itemList(){
+    public String itemList(Model model) {
+        List<Item> items = itemService.findItems();
+        model.addAttribute("items", items);
         log.info("basic/items 시작");
         return "basic/items";
     }
