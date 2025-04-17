@@ -27,4 +27,8 @@ public class ItemService {
         return itemMapper.findById(id);
     }
 
+    //상품수정
+    public void updateItem(int itemId, Item item) {
+        itemMapper.update(itemId, item);
+    }
 }

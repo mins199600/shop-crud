@@ -1,6 +1,7 @@
 package hello.shopcrud.domain.item;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface ItemMapper {
     List<Item> findAll();
     //상품 상세 보기
     Item findById(int id);
+    //상품 수정
+    void update(@Param("itemId") int itemId,@Param("item") Item item);
 }

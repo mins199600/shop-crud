@@ -30,6 +30,7 @@ public class ItemController {
     @PostMapping("/basic/items/add")
     public String addItem(@ModelAttribute Item item) {
         itemService.saveItem(item);
+        log.info("상품 등록 완료");
         return "redirect:/basic/items";
     }
 
@@ -47,11 +48,24 @@ public class ItemController {
     public String itemDetail(@PathVariable int itemId, Model model) {
         Item item = itemService.findByItemId(itemId);
         model.addAttribute("item",item);
+        log.info("상품 상세 보기 시작");
         return "basic/item";
     }
 
+    //상품 수정 페이지 이동
+    @GetMapping("/basic/items/{itemId}/edit")
+    public String showEditForm(@PathVariable int itemId, Model model) {
+        Item item = itemService.findByItemId(itemId);
+        model.addAttribute("item", item);
+        log.info("상품 수정 페이지 이동 성공");
+        return "basic/editForm";
+    }
 
     //상품 수정
-
+    @PostMapping("/basic/items/{itemId}/edit")
+    public String updateItem(@PathVariable int itemId, @ModelAttribute Item item) {
+        itemService.updateItem(itemId, item);
+        return "redirect:/basic/items/" + itemId;
+    }
 
 }

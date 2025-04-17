@@ -22,4 +22,12 @@
         where id = #{id}
     </select>
 
+    <!--상품 수정-->
+    <update id="update" parameterType="map">
+        update item
+        set itemName = #{item.itemName},
+            price = #{item.price},
+            quantity = #{item.quantity}
+        where id = #{itemId}
+    </update>
 </mapper>
