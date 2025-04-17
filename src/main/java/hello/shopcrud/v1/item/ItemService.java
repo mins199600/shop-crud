@@ -1,4 +1,4 @@
-package hello.shopcrud.domain.item;
+package hello.shopcrud.v1.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

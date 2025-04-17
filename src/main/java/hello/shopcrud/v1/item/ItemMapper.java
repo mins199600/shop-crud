@@ -1,4 +1,4 @@
-package hello.shopcrud.domain.item;
+package hello.shopcrud.v1.item;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

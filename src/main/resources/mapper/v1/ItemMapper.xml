@@ -2,21 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="hello.shopcrud.domain.item.ItemMapper">
+<mapper namespace="hello.shopcrud.v1.item.ItemMapper">
     <!-- 상품 등록 -->
-    <insert id="save" parameterType="hello.shopcrud.domain.item.Item">
+    <insert id="save" parameterType="hello.shopcrud.v1.item.Item">
         INSERT INTO item (itemName, price, quantity)
         VALUES (#{itemName}, #{price}, #{quantity})
     </insert>
 
     <!-- 상품 전체 조회 -->
-    <select id="findAll" resultType="hello.shopcrud.domain.item.Item">
+    <select id="findAll" resultType="hello.shopcrud.v1.item.Item">
         SELECT id, itemName, price, quantity
         from item
     </select>
 
     <!--상품 상세 보기-->
-    <select id="findById" resultType="hello.shopcrud.domain.item.Item">
+    <select id="findById" resultType="hello.shopcrud.v1.item.Item">
         SELECT id, itemName, price, quantity
         from item
         where id = #{id}
