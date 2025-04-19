@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Slf4j
-@Controller
+@Controller("v1ItemController")
 @RequiredArgsConstructor
 public class ItemController {
 
