@@ -39,9 +39,7 @@
   <div class="row">
     <div class="col">
       <button class="w-100 btn btn-primary btn-lg"
-              onclick="location.href='editForm.html'"
-      <button class="w-100 btn btn-primary btn-lg"
-              th:onclick="|location.href='@{/intermediate/itemEdit/{itemId}(itemId=${itemDetail.id})}'|"
+              th:onclick="|location.href='/intermediate/editForm/${itemDetail.id}'|"
               type="button">상품 수정</button>
     </div>
     <div class="col">
@@ -51,6 +49,6 @@
               type="button">목록으로</button>
     </div>
   </div>
-</div> <!-- /container -->
+</div>
 </body>
 </html>

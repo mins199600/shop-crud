@@ -32,10 +32,10 @@
             <tbody>
             <tr th:each="itemDetail : ${itemList}">
                 <td>
-                    <a th:href="@{/intermediate/itemDetail/{itemId}(itemId=${item.id})}" th:text="${itemDetail.id}">회원id</a>
+                    <a th:href="@{/intermediate/itemDetail/{itemId}(itemId=${itemDetail.id})}" th:text="${itemDetail.id}">회원id</a>
                 </td>
                 <td>
-                    <a th:href="@{/intermediate/itemDetail/{itemId}(itemId=${item.id})}" th:text="${itemDetail.itemName}">상품명</a>
+                    <a th:href="@{/intermediate/itemDetail/{itemId}(itemId=${itemDetail.id})}" th:text="${itemDetail.itemName}">상품명</a>
                 </td>
                 <td th:text="${itemDetail.price}">10000</td>
                 <td th:text="${itemDetail.quantity}">10</td>

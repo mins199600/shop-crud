@@ -27,7 +27,7 @@ public class ItemServiceV2 {
     }
 
     //상품수정
-    public void update(int itemId, ItemDtoV2 itemDtoV2) {
-        itemMapperV2.updateItem(itemId, itemDtoV2);
+    public void update(ItemDtoV2 itemDtoV2) {
+        itemMapperV2.updateItem(itemDtoV2);
     }
 }
