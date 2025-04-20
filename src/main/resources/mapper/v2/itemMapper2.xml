@@ -11,4 +11,13 @@
     FROM item;
     </select>
 
+    <!--상품상세조회-->
+    <select id="findByOne" resultType="hello.shopcrud.v2.dto.ItemDtoV2">
+        SELECT id,
+               itemName,
+               price,
+               quantity
+        FROM item
+        WHERE id = #{id}
+    </select>
     </mapper>

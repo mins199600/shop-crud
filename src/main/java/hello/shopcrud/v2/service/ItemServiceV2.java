@@ -15,8 +15,14 @@ public class ItemServiceV2 {
     private final ItemMapperV2 itemMapperV2;
 
     public List<ItemDtoV2> itemAllList(){
-        List<ItemDtoV2> findAll = itemMapperV2.itemListFindAll();
         log.info("아이템 전체 조회 서비스 들렀다감 ㅅㄱ링~");
+        List<ItemDtoV2> findAll = itemMapperV2.itemListFindAll();
         return findAll;
+    }
+
+    //상세조회
+    public ItemDtoV2 findByOne(int itemId) {
+        log.info("단일조회가 되는가??");
+        return itemMapperV2.findByOne(itemId);
     }
 }
