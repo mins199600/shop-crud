@@ -21,7 +21,7 @@ public class ItemControllerV2 {
     private final ItemServiceV2 itemServiceV2;
 
     //상품전체조회
-    @GetMapping("/")
+    @GetMapping("/intermediate/itemsList")
     public String itemList(Model model){
         List<ItemDtoV2> itemList = itemServiceV2.itemAllList();
         log.info("상품전체조회 시작 : " + itemList);
