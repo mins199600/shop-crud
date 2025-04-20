@@ -25,4 +25,9 @@ public class ItemServiceV2 {
         log.info("단일조회가 되는가??");
         return itemMapperV2.findByOne(itemId);
     }
+
+    //상품수정
+    public void update(int itemId, ItemDtoV2 itemDtoV2) {
+        itemMapperV2.updateItem(itemId, itemDtoV2);
+    }
 }

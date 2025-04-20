@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -34,5 +36,21 @@ public class ItemControllerV2 {
         model.addAttribute("itemDetail", itemDtoV2);
         log.info(itemDtoV2.toString());
         return "intermediate/itemDetail";
+    }
+    //상품수정 페이지 이동
+    @GetMapping("/intermediate/editForm/{itemId}")
+    public String itemUpdateForm(@PathVariable int itemId, Model model) {
+        ItemDtoV2 itemDtoV2 = itemServiceV2.findByOne(itemId);
+        model.addAttribute("itemDetail", itemDtoV2);
+        log.info(itemDtoV2.toString());
+        return "intermediate/editForm";
+    }
+
+    //상품수정
+    @PostMapping("/intermediate/editForm/{itemId}/edit")
+    public String itemUpdate(@PathVariable int itemId, @ModelAttribute ItemDtoV2 itemDtoV2) {
+        log.info("수정 시작해유~");
+        itemServiceV2.update(itemId, itemDtoV2);
+        return "redirect:/intermediate/itemDetail/" + itemId;
     }
 }

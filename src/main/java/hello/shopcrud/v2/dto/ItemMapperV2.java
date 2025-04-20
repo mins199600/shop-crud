@@ -10,4 +10,6 @@ public interface ItemMapperV2 {
     List<ItemDtoV2> itemListFindAll();
     //상품상세조회
     ItemDtoV2 findByOne(int itemId);
+    //상품수정
+    void updateItem(int itemId, ItemDtoV2 itemDtoV2);
 }

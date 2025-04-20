@@ -20,4 +20,13 @@
         FROM item
         WHERE id = #{id}
     </select>
+
+    <!--상품 수정-->
+    <update id="updateItem" parameterType="map">
+        UPDATE item
+        SET itemName = #{itemName},
+            price = #{price},
+            quantity = #{quantity}
+        WHERE id = #{id}
+    </update>
     </mapper>
