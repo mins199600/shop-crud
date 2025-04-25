@@ -30,4 +30,9 @@ public class ItemServiceV2 {
     public void update(ItemDtoV2 itemDtoV2) {
         itemMapperV2.updateItem(itemDtoV2);
     }
+
+    //상품등록
+    public List<ItemDtoV2> addItem(ItemDtoV2 itemAdd) {
+        itemMapperV2.insertItem(itemAdd);
+    }
 }

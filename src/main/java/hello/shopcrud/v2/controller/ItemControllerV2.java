@@ -55,4 +55,19 @@ public class ItemControllerV2 {
         itemServiceV2.update(itemDtoV2);
         return "redirect:/intermediate/itemDetail/" + itemId;
     }
+
+    //상품등록페이지 이동
+    @GetMapping("/intermediate/addForm")
+    public String showAddForm() {
+        log.info("상품등록페이지 이동");
+        return "intermediate/addForm";
+    }
+
+    //상품등록처리
+    @PostMapping("/intermediate/addForm")
+    public String processAddItem(@ModelAttribute ItemDtoV2 itemDtoV2) {
+        itemServiceV2.addItem(itemDtoV2);
+        log.info("상품등록 시작");
+        return "intermediate/addForm";
+    }
 }

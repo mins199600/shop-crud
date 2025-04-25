@@ -8,8 +8,13 @@ import java.util.List;
 public interface ItemMapperV2 {
     //전체조회
     List<ItemDtoV2> itemListFindAll();
+
     //상품상세조회
     ItemDtoV2 findByOne(int itemId);
+
     //상품수정
     void updateItem (ItemDtoV2 itemDtoV2);
+
+    //상품등록
+    void insertItem(ItemDtoV2 itemAdd);
 }
