@@ -39,6 +39,11 @@
     <!--상품삭제-->
     <delete id="removeItem" parameterType="int">
         DELETE FROM item
-        WHERE id = #{id}
+        WHERE id = #{id};
     </delete>
+
+    <update id="reorderItems">
+        UPDATE item
+        SET id = (SELECT @count := @count + 1 FROM (SELECT @count := 0) AS init)
+    </update>
     </mapper>

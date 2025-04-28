@@ -5,6 +5,8 @@ import hello.shopcrud.v2.dto.ItemMapperV2;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -38,8 +40,10 @@ public class ItemServiceV2 {
     }
 
     //상품삭제
+    @Transactional
     public void deleteItem(int id) {
         itemMapperV2.removeItem(id);
+        itemMapperV2.reorderItems();
         log.info("아이템 삭제 성공");
     }
 }

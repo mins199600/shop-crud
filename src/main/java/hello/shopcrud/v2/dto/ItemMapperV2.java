@@ -20,5 +20,6 @@ public interface ItemMapperV2 {
 
     //상품삭제
     void removeItem(int id);
-
+    void reorderItems();
 }
+
