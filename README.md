@@ -1,11 +1,1 @@
-[요구사항 분석]
-상품ID
-상품명
-가격
-수량
-
-[상품 관리 기능]
-상품 목록
-상품 상세
-상품 등록
-상품 수정
+![Image](https://github.com/user-attachments/assets/c6a3fe81-c741-4860-8efd-6d32860c7920)
