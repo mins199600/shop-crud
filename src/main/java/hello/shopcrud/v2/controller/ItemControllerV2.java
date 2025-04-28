@@ -68,6 +68,6 @@ public class ItemControllerV2 {
     public String processAddItem(@ModelAttribute ItemDtoV2 itemDtoV2) {
         itemServiceV2.addItem(itemDtoV2);
         log.info("상품등록 시작");
-        return "intermediate/addForm";
+        return "redirect:/intermediate/itemsList";
     }
 }

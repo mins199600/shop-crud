@@ -29,4 +29,10 @@
             quantity = #{quantity}
         WHERE id = #{id}
     </update>
+
+    <!--상품등록-->
+    <insert id="insertItem" parameterType="hello.shopcrud.v2.dto.ItemDtoV2">
+        insert into item (itemName, price, quantity)
+        values (#{itemName}, #{price}, #{quantity})
+    </insert>
     </mapper>

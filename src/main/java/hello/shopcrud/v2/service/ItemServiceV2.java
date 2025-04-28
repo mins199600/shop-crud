@@ -34,5 +34,6 @@ public class ItemServiceV2 {
     //상품등록
     public List<ItemDtoV2> addItem(ItemDtoV2 itemAdd) {
         itemMapperV2.insertItem(itemAdd);
+        return itemMapperV2.itemListFindAll();
     }
 }
