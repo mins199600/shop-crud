@@ -34,11 +34,22 @@ public class ItemServiceV2 {
     }
 
     //상품등록
+    @Transactional
     public List<ItemDtoV2> addItem(ItemDtoV2 itemAdd) {
         itemMapperV2.insertItem(itemAdd);
+        reorderItemIds();
         return itemMapperV2.itemListFindAll();
     }
 
+    //상품등록 id 재정렬
+    private void reorderItemIds() {
+        List<ItemDtoV2> items = itemMapperV2.itemListFindAll();
+        int id = 1;
+        for(ItemDtoV2 item : items) {
+            item.setId(id++);
+            itemMapperV2.reorderAfterInsert(item);
+        }
+    }
     //상품삭제
     @Transactional
     public void deleteItem(int id) {

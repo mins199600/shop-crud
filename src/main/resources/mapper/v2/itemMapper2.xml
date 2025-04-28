@@ -35,6 +35,11 @@
         INSERT INTO item (itemName, price, quantity)
         VALUES (#{itemName}, #{price}, #{quantity})
     </insert>
+    <!--상품등록 후 ID 재정렬-->
+    <update id="reorderAfterInsert">
+        UPDATE item
+        SET id = (SELECT @count := @count + 1 FROM (SELECT @count := 0) AS init);
+    </update>
 
     <!--상품삭제-->
     <delete id="removeItem" parameterType="int">
