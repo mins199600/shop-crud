@@ -70,4 +70,11 @@ public class ItemControllerV2 {
         log.info("상품등록 시작");
         return "redirect:/intermediate/itemsList";
     }
+
+    //상품삭제
+    @PostMapping("/intermediate/delete/{id}")
+    public String deleteItem(@PathVariable("id") int id) {
+        itemServiceV2.deleteItem(id);
+        return "redirect:/intermediate/itemsList";
+    }
 }

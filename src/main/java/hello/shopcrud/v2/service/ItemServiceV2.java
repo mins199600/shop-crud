@@ -36,4 +36,10 @@ public class ItemServiceV2 {
         itemMapperV2.insertItem(itemAdd);
         return itemMapperV2.itemListFindAll();
     }
+
+    //상품삭제
+    public void deleteItem(int id) {
+        itemMapperV2.removeItem(id);
+        log.info("아이템 삭제 성공");
+    }
 }

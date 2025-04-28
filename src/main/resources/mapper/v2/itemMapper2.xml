@@ -32,7 +32,13 @@
 
     <!--상품등록-->
     <insert id="insertItem" parameterType="hello.shopcrud.v2.dto.ItemDtoV2">
-        insert into item (itemName, price, quantity)
-        values (#{itemName}, #{price}, #{quantity})
+        INSERT INTO item (itemName, price, quantity)
+        VALUES (#{itemName}, #{price}, #{quantity})
     </insert>
+
+    <!--상품삭제-->
+    <delete id="removeItem" parameterType="int">
+        DELETE FROM item
+        WHERE id = #{id}
+    </delete>
     </mapper>

@@ -17,4 +17,8 @@ public interface ItemMapperV2 {
 
     //상품등록
     void insertItem(ItemDtoV2 itemAdd);
+
+    //상품삭제
+    void removeItem(int id);
+
 }
