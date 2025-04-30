@@ -2,10 +2,12 @@ package hello.shopcrud.v2.dto;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import javax.naming.directory.SearchResult;
 import java.util.List;
 
 @Mapper
 public interface ItemMapperV2 {
+
     //전체조회
     List<ItemDtoV2> itemListFindAll();
 
@@ -23,6 +25,7 @@ public interface ItemMapperV2 {
     void removeItem(int id);
     void reorderItems();
 
-
+    //상품검색
+    List<ItemDtoV2> findByKeyword(String keyword);
 }
 

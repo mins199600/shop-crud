@@ -54,4 +54,10 @@
     </div>
 </div>
 </body>
+<script>
+    function search() {
+        const keyword = document.querySelector('input[type="text"]').value;
+        window.location.href = `/search?keyword=${encodeURIComponent(keyword)}`;
+    }
+</script>
 </html>

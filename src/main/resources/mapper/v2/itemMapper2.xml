@@ -47,8 +47,19 @@
         WHERE id = #{id};
     </delete>
 
+    <!--상품삭제 후 ID 재정렬-->
     <update id="reorderItems">
         UPDATE item
         SET id = (SELECT @count := @count + 1 FROM (SELECT @count := 0) AS init)
     </update>
+
+    <!--상품검색-->
+    <select id="findByKeyword" resultType="hello.shopcrud.v2.dto.ItemDtoV2">
+        SELECT id,
+               itemName,
+               price,
+               quantity
+        FROM item
+        WHERE itemName LIKE CONCAT('%', #{keyword}, '%')
+    </select>
     </mapper>

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.naming.directory.SearchResult;
 import java.util.List;
 
 @Service
@@ -56,5 +57,10 @@ public class ItemServiceV2 {
         itemMapperV2.removeItem(id);
         itemMapperV2.reorderItems();
         log.info("아이템 삭제 성공");
+    }
+
+    //상품검색
+    public List<ItemDtoV2> search(String keyword) {
+        return itemMapperV2.findByKeyword(keyword);
     }
 }

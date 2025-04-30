@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -76,5 +73,14 @@ public class ItemControllerV2 {
     public String deleteItem(@PathVariable("id") int id) {
         itemServiceV2.deleteItem(id);
         return "redirect:/intermediate/itemsList";
+    }
+
+    //상품검색
+    @GetMapping("/search")
+    public String search(@RequestParam String keyword, Model model) {
+        List<ItemDtoV2> searchResult = itemServiceV2.search(keyword);
+        model.addAttribute("itemsList", searchResult);
+        model.addAttribute("searchKeyword", keyword);
+        return "intermediate/itemsList";
     }
 }
