@@ -3,7 +3,7 @@ package hello.shopcrud.v2.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import java.util.List;
+
 
 @Getter
 @Setter
