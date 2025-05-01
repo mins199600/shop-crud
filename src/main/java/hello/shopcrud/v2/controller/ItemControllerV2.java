@@ -79,7 +79,8 @@ public class ItemControllerV2 {
     @GetMapping("/search")
     public String search(@RequestParam String keyword, Model model) {
         List<ItemDtoV2> searchResult = itemServiceV2.search(keyword);
-        model.addAttribute("itemsList", searchResult);
+        model.addAttribute("itemList", searchResult);
+        log.info("검색키워드 : " + searchResult);
         model.addAttribute("searchKeyword", keyword);
         return "intermediate/itemsList";
     }
