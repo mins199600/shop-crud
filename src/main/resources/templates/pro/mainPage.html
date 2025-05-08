@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2>상품 목록</h2>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="검색어 입력" th:value="${searchKeyword}">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary" type="button" th:onclick="search()">검색</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    onclick="location.href='addForm.html'"
+                    th:onclick="|location.href='@{/pro/addForm}'|"
+                    type="button">상품 등록</button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-secondary float-end"
+                    onclick="location.href='signup.html'"
+                    th:onclick="|location.href='@{/pro/signup}'|"
+                    type="button">회원가입</button>
+        </div>
+    </div>
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>수량</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="itemDetail : ${itemList}">
+                <td>
+                    <a th:href="@{/pro/itemDetail/{itemId}(itemId=${itemDetail.id})}" th:text="${itemDetail.id}">회원id</a>
+                </td>
+                <td>
+                    <a th:href="@{/pro/itemDetail/{itemId}(itemId=${itemDetail.id})}" th:text="${itemDetail.itemName}">상품명</a>
+                </td>
+                <td th:text="${itemDetail.price}">10000</td>
+                <td th:text="${itemDetail.quantity}">10</td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+</body>
+<script>
+    function search() {
+        const keyword = document.querySelector('input[type="text"]').value;
+        window.location.href = `/search?keyword=${encodeURIComponent(keyword)}`;
+    }
+</script>
+</html>
