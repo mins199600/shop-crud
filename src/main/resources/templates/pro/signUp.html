@@ -55,5 +55,52 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    document.getElementById('send-email').addEventListener('click', function () {
+        const email = document.getElementById('email').value;
+
+        fetch('/send-OTPCode-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ email: email })
+        })
+            .then(response => response.text())
+            .then(data => alert(data));
+    });
+
+    document.getElementById('verify-code').addEventListener('click', function () {
+        const email = document.getElementById('email').value;
+        const code = document.getElementById('email-code').value;
+
+        fetch('/verify-email-code', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ email: email, code: code })
+        })
+            .then(response => response.text())
+            .then(data => alert(data));
+    });
+
+    document.querySelector('form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const memberData = {
+            memberId: document.getElementById('username').value,
+            memberPwd: document.getElementById('password').value,
+            memberEmail: document.getElementById('email').value,
+            // 추가 필드 필요시 여기에 추가
+        };
+
+        fetch('/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(memberData)
+        })
+            .then(response => response.text())
+            .then(data => alert(data));
+    });
+</script>
 </body>
 </html>
