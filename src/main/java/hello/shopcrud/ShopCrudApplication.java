@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"hello.shopcrud.v2"})
+@ComponentScan(basePackages = {"hello.shopcrud.v3"})
 public class ShopCrudApplication {
 
     public static void main(String[] args) {

@@ -51,6 +51,7 @@ public class ItemServiceV2 {
             itemMapperV2.reorderAfterInsert(item);
         }
     }
+
     //상품삭제
     @Transactional
     public void deleteItem(int id) {

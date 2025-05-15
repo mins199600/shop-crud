@@ -39,7 +39,7 @@ public class EmailConfig {
     @Value("${spring.mail.properties.mail.smtp.timeout}")
     private int timeout;
 
-    @Value("${spring.mail.properties.mail.smtp.writetimeout}")
+    @Value("${spring.mail.properties.mail.smtp.writeTimeout}")
     private int writeTimeout;
 
     @Bean
