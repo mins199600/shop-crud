@@ -15,10 +15,23 @@
                     <h4>회원가입</h4>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form id="signup-form">
                         <div class="mb-3">
                             <label for="username" class="form-label">사용자 이름</label>
                             <input type="text" class="form-control" id="username" placeholder="사용자 이름을 입력하세요" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">성별</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="memberGender" id="gender-male" value="MALE" required>
+                                    <label class="form-check-label">남성</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="memberGender" id="gender-female" value="FEMALE" required>
+                                    <label class="form-check-label">여성</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">이메일</label>
@@ -34,6 +47,10 @@
                                 <input type="text" class="form-control" id="email-code" placeholder="인증 코드를 입력하세요" required>
                                 <button type="button" class="btn btn-outline-secondary" id="verify-code">인증 확인</button>
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="memberId" class="form-label">아이디</label>
+                            <input type="memberId" class="form-control" id="memberId" placeholder="아이디를 입력하세요" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">비밀번호</label>
@@ -59,48 +76,124 @@
 </body>
 
 <script>
-    document.getElementById('send-email').addEventListener('click', function () {
+    // 공통 fetch 요청 함수
+    async function sendRequest(url, method, headers, body) {
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: headers,
+                body: body,
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP 에러! 상태 코드: ${response.status}`);
+            }
+
+            return await response.text();
+        } catch (error) {
+            console.error('요청 실패:', error);
+            alert('요청 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
+            throw error;
+        }
+    }
+
+    // 이메일 인증 요청
+    document.getElementById('send-email').addEventListener('click', async function () {
         const email = document.getElementById('email').value;
 
-        fetch('/send-OTPCode-email', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ email: email })
-        })
-            .then(response => response.text())
-            .then(data => alert(data));
+        if (!email) {
+            alert('이메일을 입력해주세요.');
+            return;
+        }
+
+        try {
+            const result = await sendRequest(
+                '/send-OTPCode-email',
+                'POST',
+                { 'Content-Type': 'application/x-www-form-urlencoded' },
+                new URLSearchParams({ email: email })
+            );
+            alert(result);
+        } catch (error) {
+            console.error('이메일 인증 요청 실패:', error);
+        }
     });
 
-    document.getElementById('verify-code').addEventListener('click', function () {
+    // 인증 코드 확인 요청
+    document.getElementById('verify-code').addEventListener('click', async function () {
         const email = document.getElementById('email').value;
         const code = document.getElementById('email-code').value;
 
-        fetch('/verify-email-code', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ email: email, code: code })
-        })
-            .then(response => response.text())
-            .then(data => alert(data));
+        if (!email || !code) {
+            alert('이메일과 인증 코드를 모두 입력해주세요.');
+            return;
+        }
+
+        try {
+            const result = await sendRequest(
+                '/verify-email-code',
+                'POST',
+                { 'Content-Type': 'application/x-www-form-urlencoded' },
+                new URLSearchParams({ email: email, code: code })
+            );
+            alert(result);
+        } catch (error) {
+            console.error('인증 코드 확인 요청 실패:', error);
+        }
     });
 
-    document.querySelector('form').addEventListener('submit', function (e) {
+    // 회원가입 요청
+    document.getElementById('signup-form').addEventListener('submit', async function (e) {
         e.preventDefault();
 
+        const username = document.getElementById('username').value;
+        const memberId = document.getElementById('memberId').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const email = document.getElementById('email').value;
+        const genderElement = document.querySelector('input[name="memberGender"]:checked');
+
+        // 입력값 검증
+        if (!username || !memberId || !password || !email || !genderElement) {
+            alert('모든 필드를 입력해주세요.');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+            return;
+        }
+
+        // 성별 값 변환 (MALE/FEMALE -> M/F)
+        const genderValue = genderElement.value === 'MALE' ? 'M' : 'F';
+
+        // 현재 날짜를 YYYY-MM-DD 형식으로 가져오기 (생년월일 임시 대체)
+        const today = new Date().toISOString().split('T')[0];
+
         const memberData = {
-            memberId: document.getElementById('username').value,
-            memberPwd: document.getElementById('password').value,
-            memberEmail: document.getElementById('email').value,
-            // 추가 필드 필요시 여기에 추가
+            memberName: username,  // 사용자 이름을 memberName으로 설정
+            memberId: memberId,    // 입력한 아이디
+            memberPwd: password,   // 비밀번호
+            memberEmail: email,    // 이메일
+            memberGender: genderValue,  // 변환된 성별 값 (M 또는 F)
+            memberBirthday: today  // 임시로 오늘 날짜 사용
         };
 
-        fetch('/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(memberData)
-        })
-            .then(response => response.text())
-            .then(data => alert(data));
+        try {
+            const result = await sendRequest(
+                '/register',
+                'POST',
+                { 'Content-Type': 'application/json' },
+                JSON.stringify(memberData)
+            );
+            alert(result);
+            // 성공 시 메인 페이지로 리다이렉션
+            window.location.href = '/pro/main';
+        } catch (error) {
+            console.error('회원가입 요청 실패:', error);
+        }
     });
 </script>
+
+
 </html>
