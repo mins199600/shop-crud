@@ -2,6 +2,7 @@ package hello.shopcrud.v3.member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,22 +33,22 @@ public class MemberController {
 
     // 회원가입 이메일 인증코드 전송
     @PostMapping("/send-OTPCode-email")
-    public String sendVerificationEmail(@RequestParam String email) {
+    public ResponseEntity<String> sendVerificationEmail(@RequestParam String email) {
         String verificationCode = mailService.sendVerificationEmail(email);
         otpCode.saveOTPCode(email, verificationCode);
         log.info("인증코드 전송 완료");
-        return "인증 코드가 이메일로 전송되었습니다.";
+        return ResponseEntity.ok("인증 코드가 이메일로 전송되었습니다.");
     }
 
     // 회원가입 인증 코드 검증
     @PostMapping("/verify-email-code")
-    public String verifyEmailCode(@RequestParam String email, @RequestParam String code) {
+    public ResponseEntity<String> verifyEmailCode(@RequestParam String email, @RequestParam String code) {
         boolean isValid = otpCode.OTPCode(email, code);
         if (isValid) {
             otpCode.removeOTPCodes(email);
-            return "이메일 인증 성공!";
+            return ResponseEntity.ok("이메일 인증 성공!");
         } else {
-            return "인증 코드가 올바르지 않습니다.";
+            return ResponseEntity.badRequest().body("인증 코드가 올바르지 않습니다.");
         }
     }
 

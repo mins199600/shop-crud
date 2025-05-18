@@ -16,6 +16,7 @@ public class MemberDto {
     private String memberModifiedDate;  //회원 수정일자
     private String memberDeleteDate;    //회원 삭제일자
     private String memberEmail;         //회원 이메일
+    private String memberDeleteYn = "N";    //회원 삭제 여부
 
     public MemberDto() {
     }
