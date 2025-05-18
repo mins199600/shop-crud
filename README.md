@@ -40,10 +40,13 @@
 ## 회원가입 완료 프로세스
 ![회원가입controller](https://github.com/user-attachments/assets/9feb8d6d-a05a-4049-aebc-c6709756c140)
 - 사용자가 정보 입력 후 회원가입 버튼 클릭
+
 ![멤버 서비스 ](https://github.com/user-attachments/assets/de94f3b0-4295-47b2-bd51-8f7a55a0799d)
 - registerMember 메소드 호출
+
 ![회원정보 저장](https://github.com/user-attachments/assets/bfa0fa4e-7889-4374-8c19-6da59e26e689)
 - 회원 정보 저장
+
 ![DB 저장](https://github.com/user-attachments/assets/cbcd3e08-cbbc-4ec9-bbdb-0bdec62227f9)
 - 데이터 베이스 저장
 
