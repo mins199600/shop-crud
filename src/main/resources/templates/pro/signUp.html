@@ -97,14 +97,22 @@
         }
     }
 
+    // 이메일 인증 상태 변수
+    let isEmailVerified = false;
+
     // 이메일 인증 요청
     document.getElementById('send-email').addEventListener('click', async function () {
         const email = document.getElementById('email').value;
+        const sendEmailButton = this;
 
         if (!email) {
             alert('이메일을 입력해주세요.');
             return;
         }
+
+        // 버튼 비활성화 및 로딩 상태 표시
+        sendEmailButton.disabled = true;
+        sendEmailButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 발송 중...';
 
         try {
             const result = await sendRequest(
@@ -113,38 +121,96 @@
                 { 'Content-Type': 'application/x-www-form-urlencoded' },
                 new URLSearchParams({ email: email })
             );
-            alert(result);
+
+            // 성공 메시지 표시
+            alert('인증 코드가 이메일로 발송되었습니다. 이메일을 확인해주세요.');
+
+            // 버튼 상태 변경 (재발송 가능하도록)
+            setTimeout(() => {
+                sendEmailButton.disabled = false;
+                sendEmailButton.innerHTML = '재발송';
+            }, 30000); // 30초 후 재발송 가능
+
         } catch (error) {
             console.error('이메일 인증 요청 실패:', error);
+            alert('이메일 발송 중 오류가 발생했습니다. 다시 시도해주세요.');
+
+            // 버튼 원상 복구
+            sendEmailButton.disabled = false;
+            sendEmailButton.innerHTML = '이메일 인증';
         }
     });
 
-    // 인증 코드 확인 요청
-    document.getElementById('verify-code').addEventListener('click', async function () {
+    // 인증 코드 확인 버튼 이벤트 리스너 추가
+    document.getElementById('verify-code').addEventListener('click', async function() {
         const email = document.getElementById('email').value;
-        const code = document.getElementById('email-code').value;
+        const verificationCode = document.getElementById('email-code').value;
+        const verifyButton = this;
 
-        if (!email || !code) {
-            alert('이메일과 인증 코드를 모두 입력해주세요.');
+        if (!email) {
+            alert('이메일을 입력해주세요.');
             return;
         }
+
+        if (!verificationCode) {
+            alert('인증 코드를 입력해주세요.');
+            return;
+        }
+
+        // 버튼 비활성화 및 로딩 상태 표시
+        verifyButton.disabled = true;
+        verifyButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 확인 중...';
 
         try {
             const result = await sendRequest(
                 '/verify-email-code',
                 'POST',
                 { 'Content-Type': 'application/x-www-form-urlencoded' },
-                new URLSearchParams({ email: email, code: code })
+                new URLSearchParams({
+                    email: email,
+                    code: verificationCode
+                })
             );
-            alert(result);
+
+            // 결과에 따라 처리
+            if (result === 'success' || result.includes('성공') || result.includes('확인')) {
+                alert('이메일 인증이 완료되었습니다.');
+                isEmailVerified = true;
+
+                // 인증 성공 시 UI 변경
+                document.getElementById('email').readOnly = true;
+                document.getElementById('email-code').readOnly = true;
+                verifyButton.classList.remove('btn-outline-secondary');
+                verifyButton.classList.add('btn-success');
+                verifyButton.innerHTML = '인증 완료';
+                verifyButton.disabled = true;
+
+                // 이메일 인증 버튼도 비활성화
+                document.getElementById('send-email').disabled = true;
+            } else {
+                alert('인증 코드가 일치하지 않습니다. 다시 확인해주세요.');
+                verifyButton.disabled = false;
+                verifyButton.innerHTML = '인증 확인';
+            }
         } catch (error) {
-            console.error('인증 코드 확인 요청 실패:', error);
+            console.error('인증 코드 확인 실패:', error);
+            alert('인증 코드 확인 중 오류가 발생했습니다. 다시 시도해주세요.');
+
+            // 버튼 원상 복구
+            verifyButton.disabled = false;
+            verifyButton.innerHTML = '인증 확인';
         }
     });
 
     // 회원가입 요청
     document.getElementById('signup-form').addEventListener('submit', async function (e) {
         e.preventDefault();
+
+        // 이메일 인증 확인
+        if (!isEmailVerified) {
+            alert('이메일 인증을 완료해주세요.');
+            return;
+        }
 
         const username = document.getElementById('username').value;
         const memberId = document.getElementById('memberId').value;
@@ -194,6 +260,7 @@
         }
     });
 </script>
+
 
 
 </html>
