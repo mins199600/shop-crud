@@ -13,4 +13,9 @@ public class MemberService {
     public void registerMember(MemberDto memberDto) {
         memberMapper.saveMember(memberDto);
     }
+
+    //로그인
+    public MemberDto login(String memberId, String memberPwd) {
+        return memberMapper.loginMember(memberId, memberPwd);
+    }
 }

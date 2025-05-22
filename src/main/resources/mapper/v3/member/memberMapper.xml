@@ -23,4 +23,11 @@
                      0
                  )
     </insert>
+
+    <!--로그인 기능-->
+    <select id="loginMember" resultType="hello.shopcrud.v3.member.MemberDto">
+        SELECT *
+        FROM member
+        WHERE member_id = #{memberId} AND member_pwd = #{memberPwd}
+    </select>
 </mapper>
